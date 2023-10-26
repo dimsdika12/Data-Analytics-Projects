@@ -1,2 +1,4 @@
-
-zipp==3.17.0
+pandas
+seaborn
+matplotlib.pyplot
+streamlit
