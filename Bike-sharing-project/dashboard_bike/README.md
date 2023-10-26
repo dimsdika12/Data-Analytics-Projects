@@ -1,5 +1,5 @@
 # Bike Sharing Dashboard 
-You can visit bike sharing dashboard [here]([https://www.contoh.com](https://data-analytics-projects-8cykappuehiqmquvdqppts3.streamlit.app/)).
+You can visit bike sharing dashboard[here](https://data-analytics-projects-8cykappuehiqmquvdqppts3.streamlit.app/).
 
 
 ## Setup environment
