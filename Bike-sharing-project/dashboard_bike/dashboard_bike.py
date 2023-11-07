@@ -79,13 +79,13 @@ with col1:
     st.metric("Total rent bikes", value="{:,}".format(total_rental_bikes))
 
 with col2:
-    total_casual = hour_df['casual'].sum()
-    st.metric("Total casual rent bike", value="{:,}".format(total_casual))
-
-with col3:
     total_registered = hour_df['registered'].sum()
     st.metric("Total registered rent bike", value="{:,}".format(total_registered))
-
+    
+with col3:
+    total_casual = hour_df['casual'].sum()
+    st.metric("Total casual rent bike", value="{:,}".format(total_casual))
+    
 
 
 # Visual 1: Total Daily Riders (bicycle rental)
