@@ -16,15 +16,16 @@ import seaborn as sns
 """ **Import Dataset**"""
 
 #import dataset
-df_load = pd.read_csv('https://raw.githubusercontent.com/dimsdika12/data-analytics-projects/main/Telco_Data%20Preprocessing/dataset/telco.csv')
+url = 'https://raw.githubusercontent.com/dimsdika12/data-analytics-projects/main/Telco_Data%20Preprocessing/dataset/telco.csv'
+df_load = pd.read_csv(url)
 
-#Tampilkan jumlah baris dan kolom
+# Display the number of rows and columns
 print(df_load.shape)
 
-#Tampilkan 5 data teratas
+# Display the top 5 rows of the dataset
 print(df_load.head())
 
-#Jumlah ID yang unik
+# Count the number of unique IDs
 print(df_load["customerID"].nunique())
 
 """# **Look for a valid customer ID (Phone number)**
@@ -37,7 +38,7 @@ print(df_load["customerID"].nunique())
 
 df_load['valid_id'] = df_load['customerID'].astype(str).str.match(r'(45\d{9,10})')
 df_load = (df_load[df_load['valid_id'] == True]).drop('valid_id', axis=1)
-print('Hasil jumlah ID Customer yang terfilter adalah',df_load['customerID'].count())
+print('The results of the number of filtered CustomerIDs are',df_load['customerID'].count())
 
 """**Filtering Duplicate Customer ID Numbers**
 
@@ -53,7 +54,7 @@ df_load.duplicated('customerID').sum()
 df_load.drop_duplicates()
 # Drop duplicate ID sorted by Periode
 df_load = df_load.sort_values('UpdatedAt', ascending=False).drop_duplicates('customerID')
-print('Hasil jumlah ID Customer yang sudah dihilangkan duplikasinya (distinct) adalah',df_load['customerID'].count())
+print('The results of the number of CustomerIDs that have been deduplicated (distinct) are',df_load['customerID'].count())
 
 df_load.duplicated().sum()
 
@@ -67,10 +68,10 @@ Handling Missing Values by Removing Rows
 - remove missing value rows in column `churn`
 """
 
-print("Total missing values data dari kolom Churn",df_load['Churn'].isnull().sum())
+print("Total missing values data from the Churn column",df_load['Churn'].isnull().sum())
 # Dropping all Rows with spesific column (churn)
 df_load.dropna(subset=['Churn'], inplace=True)
-print("Total Rows dan kolom Data setelah dihapus data Missing Values adalah",df_load.shape)
+print("Total Rows and Columns after deleting Missing Values data are",df_load.shape)
 
 """Handling Missing Values by Filling in Certain Values
 - fill missing value column `tenure` with 11
@@ -78,7 +79,7 @@ print("Total Rows dan kolom Data setelah dihapus data Missing Values adalah",df_
 """
 
 print('Status Missing Values :',df_load.isnull().values.any())
-print('\nJumlah Missing Values masing-masing kolom, adalah:')
+print('\nThe number of Missing Values for each column is:')
 print(df_load.isnull().sum().sort_values(ascending=False))
 
 #handling missing values Tenure fill with 11
@@ -91,20 +92,23 @@ for col_name in  list(['MonthlyCharges','TotalCharges']):
 	median = df_load[col_name].median()
 	df_load[col_name].fillna(median, inplace=True)
 
-print('\nJumlah Missing Values setelah di imputer datanya, adalah:')
+print('\nThe number of Missing Values after imputing the data is:')
 print(df_load.isnull().sum().sort_values(ascending=False))
 
 """# **Detecting outliers**"""
 
-# Misal untuk kolom tenure
+# before delete outliers
+# Display a boxplot for the 'tenure' column
 plt.figure()
 sns.boxplot(x=df_load['tenure'])
 plt.show()
-# dan seterusnya untuk kedua kolom yang tersisa secara berurut
+
+# Display a boxplot for the 'MonthlyCharges' column
 plt.figure()
 sns.boxplot(x=df_load['MonthlyCharges'])
 plt.show()
 
+# Display a boxplot for the 'TotalCharges' column
 plt.figure()
 sns.boxplot(x=df_load['TotalCharges'])
 plt.show()
@@ -115,10 +119,10 @@ Q3 = (df_load[['tenure','MonthlyCharges','TotalCharges']]).quantile(0.75)
 
 IQR = Q3 - Q1
 maximum  = Q3 + (1.5*IQR)
-print('Nilai Maximum dari masing-masing Variable adalah: ')
+print('The maximum value of each variable is: ')
 print(maximum)
 minimum = Q1 - (1.5*IQR)
-print('\nNilai Minimum dari masing-masing Variable adalah: ')
+print('\nThe minimum value of each variable is: ')
 print(minimum)
 
 more_than     = (df_load > maximum)
@@ -126,20 +130,23 @@ lower_than    = (df_load < minimum)
 df_load       = df_load.mask(more_than, maximum, axis=1)
 df_load       = df_load.mask(lower_than, minimum, axis=1)
 
-print('\nPersebaran data setelah ditangani Outlier: ')
+print('\nData distribution after handling outliers: ')
 print(df_load[['tenure','MonthlyCharges','TotalCharges']].describe())
 
-"""plot boxplot to cek again outlier"""
+"""Plotting boxplots to check for outliers; observing whether there are any outliers present"""
 
-# Misal untuk kolom tenure
+# after delete outliers
+# Display a boxplot for the 'tenure' column
 plt.figure()
 sns.boxplot(x=df_load['tenure'])
 plt.show()
-# dan seterusnya untuk kedua kolom yang tersisa secara berurut
+
+# Display a boxplot for the 'MonthlyCharges' column
 plt.figure()
 sns.boxplot(x=df_load['MonthlyCharges'])
 plt.show()
 
+# Display a boxplot for the 'TotalCharges' column
 plt.figure()
 sns.boxplot(x=df_load['TotalCharges'])
 plt.show()
