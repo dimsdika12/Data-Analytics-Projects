@@ -4,7 +4,7 @@ Telco is a telecommunications company with numerous branches nationwide. Since i
 
 Despite being relatively young, having just over a year in the industry, Telco has experienced a significant number of customers switching their subscriptions to competitors. The management aims to reduce customer churn by implementing machine learning techniques.
 
-In this project, the focus is on Data Preprocessing (Data Cleansing) for the previous month, June 2020. The objective is to prepare the data by:
+In this project, the focus is on Data Preprocessing (Data Cleansing) for the month of June 2020. The objective is to prepare the data by:
 
 - Validating Customer IDs (Phone Numbers)
 - Handling Missing Values
